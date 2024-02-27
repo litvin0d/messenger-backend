@@ -1,25 +1,22 @@
-import User from "../../models/user.model";
-import {FilterQuery} from 'mongoose'
+import User from '../../models/user.model';
 
 type signupData = {
-	fullName: string,
-	username: string,
-	password: string,
-	confirmPassword: string,
-	gender: 'male' | 'female',
-}
+	fullName: string;
+	username: string;
+	password: string;
+	confirmPassword: string;
+	gender: 'male' | 'female';
+};
 
 export const signup = async (req, res) => {
 	try {
-		const {fullName, username, password, confirmPassword, gender}: signupData = req.body;
+		const { fullName, username, password, confirmPassword, gender }: signupData = req.body;
 
-		if (password !== confirmPassword)
-			return res.status(400).json({error: 'Password doesn\'t match'})
+		if (password !== confirmPassword) return res.status(400).json({ error: "Password doesn't match" });
 
-		const user = await User.findOne({username});
+		const user = await User.findOne({ username });
 
-		if (user)
-			return res.status(400).json({error: 'User already exists'})
+		if (user) return res.status(400).json({ error: 'User already exists' });
 
 		// TODO: HASH PASSWORD
 
@@ -28,7 +25,7 @@ export const signup = async (req, res) => {
 		const newUser = new User({
 			fullName,
 			username,
-			profilePic
+			profilePic,
 		});
 
 		await newUser.save();
@@ -40,11 +37,11 @@ export const signup = async (req, res) => {
 			password: newUser.password,
 			gender: newUser.gender,
 			profilePic: profilePic,
-		})
+		});
 	} catch (error) {
 		res.status(500).json({
 			error: 'Internal Server Error',
 		});
 		throw new Error(`Signup error: ${error.message}`);
 	}
-}
+};

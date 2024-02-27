@@ -1,3 +1,3 @@
 export const logout = (req, res) => {
-	res.send('logout')
-}
+	res.send('logout');
+};

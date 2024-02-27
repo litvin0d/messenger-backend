@@ -6,4 +6,4 @@ export const connectToDatabase = async () => {
 	} catch (error) {
 		throw new Error(`Could not connect to database: ${error.message}`);
 	}
-}
+};

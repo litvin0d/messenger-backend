@@ -1,8 +1,8 @@
-import express from 'express'
+import express from 'express';
 import type { Express } from 'express';
 
-import authRoutes from "./routes/auth.routes";
-import { connectToDatabase } from "./db/connect.ts";
+import authRoutes from './routes/auth.routes';
+import { connectToDatabase } from './db/connect.ts';
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
