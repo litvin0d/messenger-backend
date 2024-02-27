@@ -5,7 +5,7 @@ import { logout } from '../controlles/auth/logout.controller';
 
 const router = Router();
 
-router.get('/signup', signup);
+router.post('/signup', signup);
 
 router.get('/login', login);
 

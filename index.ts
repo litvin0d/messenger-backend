@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 
+app.get('/', (req, res) => {
+	res.json({ message: 'Hello World!' })
+})
+
 app.listen(PORT, () => {
 	connectToDatabase().then(() => console.log('Successfully connected to database!'));
 	console.log(`Server is up and running on port ${PORT}`);
