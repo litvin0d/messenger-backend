@@ -1,16 +1,25 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+export interface IUser {
+	_id: mongoose.Types.ObjectId,
+	fullName: string;
+	username: string;
+	password: string;
+	gender: 'male' | 'female';
+	profilePic?: string;
+}
+
+const userSchema = new Schema<IUser>({
 	fullName: {
 		type: String,
 		required: true,
-		maxLength: 64
+		maxLength: 64,
 	},
 	username: {
 		type: String,
 		required: true,
 		unique: true,
-		minlength: 3
+		minlength: 3,
 	},
 	password: {
 		type: String,
@@ -28,6 +37,6 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 export default User;

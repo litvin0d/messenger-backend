@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import type { Request, Response } from 'express';
 
 import User from '../../models/user.model';
 import generateTokenAndSetCookie from '../../utils/generateToken';
@@ -11,13 +12,13 @@ type signupData = {
 	gender: 'male' | 'female';
 };
 
-export const signup = async (req, res) => {
+export const signup = async (req: Request, res: Response) => {
 	try {
 		const fullName = (req.body as signupData).fullName.trim();
 		const username = (req.body as signupData).username.trim();
-		const password = (req.body as signupData).password.trim()
-		const confirmPassword = (req.body as signupData).confirmPassword.trim()
-		const gender = (req.body as signupData).gender.trim()
+		const password = (req.body as signupData).password.trim();
+		const confirmPassword = (req.body as signupData).confirmPassword.trim();
+		const gender = (req.body as signupData).gender.trim();
 
 		// fullName validation
 		if (fullName.length < 1) return res.status(400).json({ error: 'Full Name is required' });
@@ -36,7 +37,8 @@ export const signup = async (req, res) => {
 
 		// gender validation
 		if (gender.length < 1) return res.status(400).json({ error: 'Gender is required' });
-		if (gender !== 'male' && gender !== 'female') return res.status(400).json({ error: 'There is only two genders: male and female' });
+		if (gender !== 'male' && gender !== 'female')
+			return res.status(400).json({ error: 'There is only two genders: male and female' });
 
 		// check if user already exists
 		// noinspection TypeScriptValidateTypes
@@ -61,7 +63,7 @@ export const signup = async (req, res) => {
 
 		// saving new user in db
 		if (newUser) {
-			generateTokenAndSetCookie(newUser._id, res)
+			generateTokenAndSetCookie(newUser._id, res);
 			await newUser.save();
 
 			res.status(201).json({
@@ -73,12 +75,15 @@ export const signup = async (req, res) => {
 				profilePic: profilePic,
 			});
 		} else {
-			res.status(400).json({ error: 'Invalid user data' })
+			res.status(400).json({ error: 'Invalid user data' });
 		}
 	} catch (error) {
 		res.status(500).json({
 			error: 'Internal Server Error',
 		});
-		throw new Error(`Signup error: ${error.message}`);
+
+		if (error instanceof Error) {
+			throw new Error(`Signup error: ${error.message}`);
+		}
 	}
 };
