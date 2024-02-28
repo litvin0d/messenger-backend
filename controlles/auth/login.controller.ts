@@ -26,6 +26,13 @@ export const login = async (req: Request, res: Response) => {
 		}
 
 		generateTokenAndSetCookie(user._id, res);
+
+		res.status(200).json({
+			_id: user._id,
+			fullName: user.fullName,
+			username: user.username,
+			profilePic: user.profilePic,
+		})
 	} catch (error) {
 		res.status(500).json({
 			error: 'Internal Server Error',
