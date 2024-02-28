@@ -41,7 +41,6 @@ export const signup = async (req: Request, res: Response) => {
 			return res.status(400).json({ error: 'There is only two genders: male and female' });
 
 		// check if user already exists
-		// noinspection TypeScriptValidateTypes
 		const user = await User.findOne({ username });
 		if (user) return res.status(400).json({ error: 'User with this username already exists' });
 
@@ -82,8 +81,7 @@ export const signup = async (req: Request, res: Response) => {
 			error: 'Internal Server Error',
 		});
 
-		if (error instanceof Error) {
+		if (error instanceof Error)
 			throw new Error(`Signup error: ${error.message}`);
-		}
 	}
 };

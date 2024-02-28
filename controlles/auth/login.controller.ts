@@ -15,7 +15,6 @@ export const login = async (req: Request, res: Response) => {
 		const username = (req.body as loginData).username;
 		const password = (req.body as loginData).password;
 
-		// noinspection TypeScriptValidateTypes
 		const user: IUser | null = await User.findOne({ username });
 		if (!user) {
 			return res.status(400).json({ error: 'Invalid username or password' });
@@ -32,8 +31,7 @@ export const login = async (req: Request, res: Response) => {
 			error: 'Internal Server Error',
 		});
 
-		if (error instanceof Error) {
+		if (error instanceof Error)
 			throw new Error(`Login error: ${error.message}`);
-		}
 	}
 };
