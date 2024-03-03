@@ -9,7 +9,6 @@ export const logout = (req: Request, res: Response) => {
 			error: 'Internal Server Error',
 		});
 
-		if (error instanceof Error)
-			throw new Error(`Logout error: ${error.message}`);
+		if (error instanceof Error) throw new Error(`Logout error: ${error.message}`);
 	}
 };

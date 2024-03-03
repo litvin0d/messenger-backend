@@ -81,7 +81,6 @@ export const signup = async (req: Request, res: Response) => {
 			error: 'Internal Server Error',
 		});
 
-		if (error instanceof Error)
-			throw new Error(`Signup error: ${error.message}`);
+		if (error instanceof Error) throw new Error(`Signup error: ${error.message}`);
 	}
 };

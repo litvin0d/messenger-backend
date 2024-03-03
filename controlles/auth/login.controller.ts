@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import type { Request, Response } from 'express'
+import type { Request, Response } from 'express';
 
 import User from '../../models/user.model';
 import generateTokenAndSetCookie from '../../utils/generateToken';
@@ -32,13 +32,12 @@ export const login = async (req: Request, res: Response) => {
 			fullName: user.fullName,
 			username: user.username,
 			profilePic: user.profilePic,
-		})
+		});
 	} catch (error) {
 		res.status(500).json({
 			error: 'Internal Server Error',
 		});
 
-		if (error instanceof Error)
-			throw new Error(`Login error: ${error.message}`);
+		if (error instanceof Error) throw new Error(`Login error: ${error.message}`);
 	}
 };

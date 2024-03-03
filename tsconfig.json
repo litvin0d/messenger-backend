@@ -25,6 +25,5 @@
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false
 	},
-	"files": [],
 	"exclude": ["node_modules"]
 }
